@@ -1,3 +1,3 @@
 #!/bin/sh
 
-cat /proc/meminfo | awk '/MemTotal/ {printf("mem_total=%d\n", $2)}'
+awk '/MemTotal/ { printf("mem_total=%d\n", $2) }' /proc/meminfo
