@@ -4,8 +4,5 @@
 type wget > /dev/null || exit 0
 type jq > /dev/null || exit 0
 
-# If network is down or we lack DNS, exit gracefully
-myip=`dig +short myip.opendns.com @resolver1.opendns.com 2> /dev/null` || exit 0
-
-wget -q ipinfo.io/$myip -O - \
-    | jq -r "to_entries|map(\"\(.key)=\(.value|tostring)\")|.[]"
+wget -q ipinfo.io -O - 2> /dev/null \
+    | jq -r "to_entries|map(\"\(.key)=\(.value|tostring)\")|.[]" || exit 0
